@@ -77,7 +77,7 @@ export class Router {
     this.routes['DELETE'][route] = handler;
   }
 
-  find(method: string, route: string): { route: Record<string, any>, pathParam: {} } {
+  find(method: string, route: string): { route: Handler, pathParam: {} } {
     let result;
     if (route !== '/') result = this.#__resolvePathParam(method, route) || '/';
     else result = '/';

@@ -119,7 +119,6 @@ export class OrderService {
 
     async remover(id: string) {
         // pode verificar dependências antes de remover
-        console.log(" id ---------> ", id)
         try {
             return this.orderRepository.remover(id);
         }

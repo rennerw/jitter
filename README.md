@@ -187,6 +187,81 @@ npx prisma studio
 9. Resposta é enviada ao cliente
 ```
 
+## Padrão de Responses
+**Responses**
+```json
+{
+  "code": "códigos da classe: 1xx,2xx,3xx,4xx,5xx",
+  "message": "string",
+  "data": "string | array | object | null"
+}
+```
+
+
+## 📡 Exemplo de Uso - Ver uma várias Orders sem filtro
+### Rota GET `/api/order/list`
+
+**Request:**
+### Apenas URL
+
+**Response (200 OK):**
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": [{
+    "orderId": "ORD001-v1",
+    "value": 100.00,
+    "creationDate": "2025-03-09T10:00:00Z",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 2,
+        "price": 50.00
+      }
+    ]
+  },
+  {
+    "orderId": "ORD002-v1",
+    "value": 100.00,
+    "creationDate": "2025-03-09T10:00:00Z",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 2,
+        "price": 50.00
+      }
+    ]
+  }]
+}
+```
+
+## 📡 Exemplo de Uso - Ver uma Order especifica
+### Rota GET `/api/order/{id}`
+
+**Request:**
+### Apenas URL com Path Param
+
+**Response (200 OK):**
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "orderId": "ORD001-v1",
+    "value": 150.50,
+    "creationDate": "2025-03-09T10:00:00Z",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 2,
+        "price": 50.00
+      }
+    ]
+  }
+}
+```
+
 ## 📡 Exemplo de Uso - Criar uma Order
 
 ### Rota POST `/api/order`
@@ -207,10 +282,10 @@ npx prisma studio
 }
 ```
 
-**Response (201 Created):**
+**Response (200 OK):**
 ```json
 {
-  "code": 201,
+  "code": 200,
   "message": "Ordem criada com sucesso",
   "data": {
     "orderId": "ORD001-v1",
@@ -224,6 +299,61 @@ npx prisma studio
       }
     ]
   }
+}
+```
+
+## 📡 Exemplo de Uso - Atualizar uma Order
+
+### Rota PATCH `/api/order/{id}`
+
+**Request:**
+```json
+{
+  "numeroPedido": "ORD001-v1",
+  "valorTotal": 150.50,
+  "dataCriacao": "2025-03-09T10:00:00Z",
+  "items": [
+    {
+      "idItem": 1,
+      "valorItem": 50.00,
+      "quantidadeItem": 2
+    }
+  ]
+}
+```
+
+**Response (200 OK):**
+```json
+{
+  "code": 200,
+  "message": "Ordem criada com sucesso",
+  "data": {
+    "orderId": "ORD001-v1",
+    "value": 150.50,
+    "creationDate": "2025-03-09T10:00:00Z",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 2,
+        "price": 50.00
+      }
+    ]
+  }
+}
+```
+
+## 📡 Exemplo de Uso - Excluir uma Order em cascata com seus itens
+### Rota DELETE `/api/order/{id}`
+
+**Request:**
+### Apenas URL
+
+**Response (200 OK):**
+```json
+{
+  "code": 200,
+  "message": "Ordem criada com sucesso",
+  "data": "Removido {id}"
 }
 ```
 

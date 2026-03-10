@@ -82,8 +82,6 @@ export class OrderRepository {
             );
         }
         catch (e: any) {
-            // será logado no handleError
-            console.log(e);
             throw new ErroBancoDeDados("Erro de banco de dados ao remover Order");
         }
     }
